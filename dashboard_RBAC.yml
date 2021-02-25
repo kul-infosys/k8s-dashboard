@@ -1,0 +1,59 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata: 
+  name: kubenetes-dashboard
+  namespace: kubenetes-dashboard
+  labels:
+    k8s-app: kubenetes-dashboard
+rules:
+  - apiGroups: [""]
+    resources: ["Secrets"]
+    resourceNames: ["kubernetes-dashboard-key-holder","kubernetes-dashboard-csrf","kubernetes-dashboard-certs"]
+    verbs: ["get","update","delete"]
+  - apiGroups: [""]
+    resources: ["ConfigMaps"]
+    resourceNames: ["kubernetes-dashboard-settingss"]
+    verbs: ["get","update"]
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata: 
+  name: kubenetes-dashboard
+  labels:
+    k8s-app: kubenetes-dashboard
+rules:
+  - apiGroups: ["metrics.k8s.io"]
+    resources: ["pods","nodes"]
+    verbs: ["get","list","watch"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata: 
+  name: kubenetes-dashboard
+  namespace: kubenetes-dashboard
+  labels:
+    k8s-app: kubenetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io/v1
+  kind: Role
+  name: kubenetes-dashboard
+subjects:
+  - kind: ServiceAccount
+    name: kubenetes-dashboard
+    namespace: kubenetes-dashboard
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata: 
+  name: kubenetes-dashboard
+  labels:
+    k8s-app: kubenetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  name: kubenetes-dashboard
+subjects:
+  - kind: ServiceAccount
+    name: kubenetes-dashboard
+    namespace: kubenetes-dashboard
+  

@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubenetes-dashboard
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: 
+  name: kubenetes-dashboard
+  namespace: kubenetes-dashboard
+  labels:
+    k8s-app: kubenetes-dashboard
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubernetes-dashboard-certs
+  namespace: kubenetes-dashboard
+  labels:
+    k8s-app: kubenetes-dashboard
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubernetes-dashboard-csrf
+  namespace: kubenetes-dashboard
+  labels:
+    k8s-app: kubenetes-dashboard
+type: Opaque
+data:
+  csrf: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubernetes-dashboard-key-holder
+  namespace: kubenetes-dashboard
+  labels:
+    k8s-app: kubenetes-dashboard
+type: Opaque
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubernetes-dashboard-settings
+  namespace: kubenetes-dashboard
+  labels:
+    k8s-app: kubenetes-dashboard
