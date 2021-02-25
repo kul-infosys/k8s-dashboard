@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: kubenetes-dashboard
+  namespace: kubenetes-dashboard
+  labels:
+    k8s-app: kubenetes-dashboard
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: kubenetes-dashboard
+  template:
+    metadata:
+      labels:
+        k8s-app: kubenetes-dashboard
+    spec:
+      containers:
+      - name: kubenetes-dashboard
+        image: kubernetesui/dashboard:v2.0.0-beta8
+        imagePullPolicy: Always
+        ports: 
+          - containerPort: 8443
+            protocol: TCP
+        args: 
+          - --auto-generate-certificates
+          - --namespace=kubenetes-dashboard
+        volumeMounts:
+          - name: kubernetes-dashboard-certs
+            mountPath: /certs
+          - name: tmp-volume
+            mountPath: /tmp
+        livenessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /
+            port: 8443
+          initalDelaySeconds: 30
+          timeoutSeconds: 60
+        securityContext:
+          allowPrivilageEscalation: false
+          readOnlyRootFileSystem: true
+          runAsUser: 1001
+          runAsGroup: 2001
+      volumes:
+        - name: kubernetes-dashboard-certs
+          secret:
+            secretName: kubernetes-dashboard-certs
+        - name: tmp-volume
+          emptyDir: {}
+      serviceAccountName: kubernetes-dashboard
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
