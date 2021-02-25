@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: kubenetes-dashboard
-  namespace: kubenetes-dashboard
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
   labels:
-    k8s-app: kubenetes-dashboard
+    k8s-app: kubernetes-dashboard
 spec: 
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: kubenetes-dashboard
+      k8s-app: kubernetes-dashboard
   template:
     metadata:
       labels:
-        k8s-app: kubenetes-dashboard
+        k8s-app: kubernetes-dashboard
     spec:
       containers:
-      - name: kubenetes-dashboard
+      - name: kubernetes-dashboard
         image: kubernetesui/dashboard:v2.0.0-beta8
         imagePullPolicy: Always
         ports: 
@@ -24,7 +24,7 @@ spec:
             protocol: TCP
         args: 
           - --auto-generate-certificates
-          - --namespace=kubenetes-dashboard
+          - --namespace=kubernetes-dashboard
         volumeMounts:
           - name: kubernetes-dashboard-certs
             mountPath: /certs

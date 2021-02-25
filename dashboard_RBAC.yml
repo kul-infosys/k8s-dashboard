@@ -1,10 +1,10 @@
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata: 
-  name: kubenetes-dashboard
-  namespace: kubenetes-dashboard
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
   labels:
-    k8s-app: kubenetes-dashboard
+    k8s-app: kubernetes-dashboard
 rules:
   - apiGroups: [""]
     resources: ["Secrets"]
@@ -18,9 +18,9 @@ rules:
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata: 
-  name: kubenetes-dashboard
+  name: kubernetes-dashboard
   labels:
-    k8s-app: kubenetes-dashboard
+    k8s-app: kubernetes-dashboard
 rules:
   - apiGroups: ["metrics.k8s.io"]
     resources: ["pods","nodes"]
@@ -29,31 +29,31 @@ rules:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata: 
-  name: kubenetes-dashboard
-  namespace: kubenetes-dashboard
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
   labels:
-    k8s-app: kubenetes-dashboard
+    k8s-app: kubernetes-dashboard
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: kubenetes-dashboard
+  name: kubernetes-dashboard
 subjects:
   - kind: ServiceAccount
-    name: kubenetes-dashboard
-    namespace: kubenetes-dashboard
+    name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata: 
-  name: kubenetes-dashboard
+  name: kubernetes-dashboard
   labels:
-    k8s-app: kubenetes-dashboard
+    k8s-app: kubernetes-dashboard
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: kubenetes-dashboard
+  name: kubernetes-dashboard
 subjects:
   - kind: ServiceAccount
-    name: kubenetes-dashboard
-    namespace: kubenetes-dashboard
+    name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
   
