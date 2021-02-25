@@ -43,7 +43,7 @@ subjects:
     namespace: kubenetes-dashboard
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io
+apiVersion: rbac.authorization.k8s.io/v1
 metadata: 
   name: kubenetes-dashboard
   labels:
