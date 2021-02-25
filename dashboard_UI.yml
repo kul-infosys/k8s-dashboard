@@ -35,11 +35,11 @@ spec:
             scheme: HTTPS
             path: /
             port: 8443
-          initalDelaySeconds: 30
+          initialDelaySeconds: 30
           timeoutSeconds: 60
         securityContext:
-          allowPrivilageEscalation: false
-          readOnlyRootFileSystem: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
           runAsUser: 1001
           runAsGroup: 2001
       volumes:
